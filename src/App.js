@@ -6,6 +6,7 @@ import "./App.css"
 import Homepage from "./pages/Homepage/Homepage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import PlayersListPage from "./pages/PlayersListPage/PlayersListPage";
 
 const App = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const App = () => {
       <Route exact path="/" element={<Homepage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/playerslist" element={<PlayersListPage />} />
       {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>
   );
