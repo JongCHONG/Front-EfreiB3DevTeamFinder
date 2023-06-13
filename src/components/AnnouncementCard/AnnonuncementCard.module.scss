@@ -1,0 +1,20 @@
+.announcementCard {
+  margin: 2%;
+  box-shadow: 4px 3px 3px 0px #3F3F3F;
+  .announcementsHeader {
+    padding: 1%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  .announcementsContainer {
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    font-style: italic;
+  }
+  .announcementsFooter {
+    padding: 1%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}
