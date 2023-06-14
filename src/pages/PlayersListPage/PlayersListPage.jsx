@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Fade } from "react-reveal";
 
 import Menu from "../../components/Menu/Menu";
@@ -8,6 +8,24 @@ import PlayerListCard from "../../components/PlayerListCard/PlayerListCard";
 import PlayersListPageStyles from "../PlayersListPage/PlayersListPage.module.scss";
 
 const PlayersList = () => {
+
+  const [playerInfo, setPlayerInfo] = useState(null);
+
+  useEffect(() => {
+    const fetchPlayerInfo = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/users");
+        const data = await response.json();
+        console.log(data);
+        setPlayerInfo(data);
+      }
+      catch (error) {
+        console.log(error);
+      }
+    };
+    fetchPlayerInfo();
+  }, []);
+
   return (
     <>
       <section className="top">
@@ -21,12 +39,13 @@ const PlayersList = () => {
               Liste des joueurs
             </div>
               <Fade bottom>
-                <PlayerListCard />
-                <PlayerListCard />
-                <PlayerListCard />
-                <PlayerListCard />
-                <PlayerListCard />
-                <PlayerListCard />
+              {playerInfo ? (
+                playerInfo.map((player) => (
+                  <PlayerListCard player={player}/>
+                ))
+                ) : (
+                  <span style={{marginLeft:"3%"}}>Chargement des données...</span>
+                )}
               </Fade>
             </div>
           </div>

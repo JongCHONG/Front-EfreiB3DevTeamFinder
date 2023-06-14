@@ -6,18 +6,19 @@ import {
   faCircleUser,
 } from '@fortawesome/free-solid-svg-icons';
 
-const PlayerListCard = () => {
+
+const PlayerListCard = ({ player }) => {
+
   return (
       <div className={PlayerListStyles.playerCard}>
         <div className={PlayerListStyles.playersContainer}>
         <FontAwesomeIcon icon={faCircleUser} size='lg' />
-          <div className={PlayerListStyles.justifyBetween}>
-            <span>Username</span>
-            <span>Rank</span>
-            <span>Discord#0000</span>
-            <span>Region</span>
-          </div>
-          
+            <div className={PlayerListStyles.justifyBetween}>
+              <span>{player.username}</span>
+              <span>Rank: {player.rank}</span>
+              <span>Discord: {player.discord}</span>
+              <span>Région: {player.region}</span>
+            </div>
         </div>
       </div>
   );
