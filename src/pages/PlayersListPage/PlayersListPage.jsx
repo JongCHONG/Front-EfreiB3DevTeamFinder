@@ -15,18 +15,24 @@ const PlayersList = () => {
       </section>
       <section className="middle">
         <div className={PlayersListPageStyles.topContainer}>
-        <div className={PlayersListPageStyles.playersList}>
-            <Fade bottom>
-              <PlayerListCard />
-              <PlayerListCard />
-              <PlayerListCard />
-            </Fade>
+          
+          <div className={PlayersListPageStyles.playersList}>
+            <div className={PlayersListPageStyles.containerTitle}>
+              Liste des joueurs
+            </div>
+              <Fade bottom>
+                <PlayerListCard />
+                <PlayerListCard />
+                <PlayerListCard />
+                <PlayerListCard />
+                <PlayerListCard />
+                <PlayerListCard />
+              </Fade>
+            </div>
           </div>
-        </div>
+          <ScrollToTopButton />
       </section>
-      <section className="bottom">
-        <ScrollToTopButton />
-      </section>
+      
     </>
   );
 };

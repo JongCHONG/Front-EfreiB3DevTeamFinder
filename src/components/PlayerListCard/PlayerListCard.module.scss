@@ -1,16 +1,15 @@
 .playerCard {
   margin: 2%;
-  box-shadow: 4px 3px 3px 0px #3F3F3F;
+  box-shadow: 4px 3px 3px 0px #00000035;
   .playersContainer {
     background-color: #1E1E1E;
     display: flex;
     align-items: center;
-    font-style: italic;
     padding:2%;
   }
   .justifyBetween {
-    margin-left: 3%;
-    width: 60%;
+    margin-left: 4%;
+    width: 55%;
     display:flex;
     justify-content: space-between;
   }
