@@ -1,6 +1,6 @@
 import React from "react";
 
-import AnnouncementCardStyles from "../AnnouncementCard/AnnonuncementCard.module.scss"
+import AnnouncementCardStyles from "../AnnouncementCard/AnnouncementCard.module.scss"
 import logoDefault from "../../assets/images/logo-announcement-default.png";
 
 const AnnouncementCard = () => {
