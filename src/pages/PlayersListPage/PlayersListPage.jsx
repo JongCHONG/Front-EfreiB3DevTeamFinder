@@ -6,24 +6,17 @@ import ScrollToTopButton from "../../components/ScrollToTop/ScrollToTop";
 import PlayerListCard from "../../components/PlayerListCard/PlayerListCard";
 
 import PlayersListPageStyles from "../PlayersListPage/PlayersListPage.module.scss";
+import { getPlayersListData } from "../../utils/helpers";
 
 const PlayersList = () => {
-
-  const [playerInfo, setPlayerInfo] = useState(null);
+  const [playersListInfo, setPlayersListInfo] = useState(null);
 
   useEffect(() => {
-    const fetchPlayerInfo = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/users");
-        const data = await response.json();
-        console.log(data);
-        setPlayerInfo(data);
-      }
-      catch (error) {
-        console.log(error);
-      }
+    const fetchPlayersList = async () => {
+      const data = await getPlayersListData();
+      setPlayersListInfo(data);
     };
-    fetchPlayerInfo();
+    fetchPlayersList();
   }, []);
 
   return (
@@ -33,25 +26,25 @@ const PlayersList = () => {
       </section>
       <section className="middle">
         <div className={PlayersListPageStyles.topContainer}>
-          
           <div className={PlayersListPageStyles.playersList}>
             <div className={PlayersListPageStyles.containerTitle}>
               Liste des joueurs
             </div>
-              <Fade bottom>
-              {playerInfo ? (
-                playerInfo.map((player) => (
-                  <PlayerListCard player={player}/>
+            <Fade bottom>
+              {playersListInfo ? (
+                playersListInfo.map((player) => (
+                  <PlayerListCard player={player} />
                 ))
-                ) : (
-                  <span style={{marginLeft:"3%"}}>Chargement des données...</span>
-                )}
-              </Fade>
-            </div>
+              ) : (
+                <span style={{ marginLeft: "3%" }}>
+                  Chargement des données...
+                </span>
+              )}
+            </Fade>
           </div>
-          <ScrollToTopButton />
+        </div>
+        <ScrollToTopButton />
       </section>
-      
     </>
   );
 };
