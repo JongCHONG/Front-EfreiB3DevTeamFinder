@@ -1,25 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
+import { UserContext } from "../../contexts/UserContext";
 
 import Button from "../../components/Button/Button";
 
 import SignUpPageStyles from "./SignUpPage.module.scss";
 
+import { login } from "../../utils/helpers";
+
 const SignUpPage = () => {
+  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [errorSignup, setErrorSignup] = useState(null);
+
   const formik = useFormik({
     initialValues: {
-      username: "",
-      email: "",
-      password: "",
-      passwordConfirmation: "",
-      discord: "",
+      username: "Valou",
+      email: "aalou@aalou.com",
+      password: "ValouValou",
+      passwordConfirmation: "ValouValou",
+      discord: "Valou",
       agreeTerms: false,
     },
     onSubmit: (values) => {
-      console.log(values);
+      signup(values);
     },
     validateOnChange: false,
     validationSchema: Yup.object({
@@ -40,12 +47,58 @@ const SignUpPage = () => {
     }),
   });
 
+  const signup = async (values) => {
+    // fetch signup
+    const signupResponse = await fetch("http://localhost:5000/users", {
+      method: "post",
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        username: values.username,
+        password: values.password,
+        mail: values.email,
+        discord: values.discord,
+      }),
+    });
+
+    const user = await signupResponse.json();
+
+    if (user.error) {
+      setErrorSignup(user.error);
+      return;
+    }
+
+    // connexion
+    const loginResponse = await login(user.username, values.password);
+
+    if (loginResponse.status >= 400) {
+      alert(loginResponse.statusText);
+    } else {
+      const data = await loginResponse.json();
+      const { username, _id } = data.user;
+      localStorage.setItem(
+        "TeamFinder",
+        JSON.stringify({ username, _id, token: data.token })
+      );
+      setUser(data);
+      navigate(`/`);
+    }
+  };
+
   // console.log(formik.values);
   // console.log(formik.errors);
   return (
     <div className={SignUpPageStyles.container}>
       <form onSubmit={formik.handleSubmit} className={SignUpPageStyles.form}>
         <div className={SignUpPageStyles.title}>Inscription</div>
+        <div
+          className={SignUpPageStyles.error}
+          style={{ textAlign: "center", marginBottom: "10px" }}
+        >
+          {errorSignup && errorSignup}
+        </div>
         <input
           type="text"
           id="username"
