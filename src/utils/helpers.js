@@ -28,6 +28,16 @@ export const getPlayersListData = async () => {
   }
 };
 
+export const getAnnouncements = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/announcements");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const checkUserLoggedIn = () => {
   const user = localStorage.getItem("TeamFinder");
 

@@ -8,7 +8,6 @@ import { checkUserLoggedIn } from "../../utils/helpers";
 const Menu = () => {
   const connectedUser = checkUserLoggedIn();
 
-  console.log(connectedUser);
   return (
     <nav className={MenuStyles.container}>
       <div className={MenuStyles.logo}>
@@ -19,8 +18,8 @@ const Menu = () => {
       <div className={MenuStyles.navMenu}>
         <div className={MenuStyles.navLeft}>
           <Link to="/">Annonces</Link>
-          <Link to="/">Joueurs</Link>
-          <Link to="/playerslist">Trouver une équipe</Link>
+          <Link to="/playerslist">Recruter des joueurs</Link>
+          <Link to="/">Trouver une équipe</Link>
         </div>
         {connectedUser ? (
           <div className={MenuStyles.navRight}>

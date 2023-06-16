@@ -31,15 +31,9 @@ const PlayersList = () => {
               Liste des joueurs
             </div>
             <Fade bottom>
-              {playersListInfo ? (
-                playersListInfo.map((player) => (
-                  <PlayerListCard player={player} />
-                ))
-              ) : (
-                <span style={{ marginLeft: "3%" }}>
-                  Chargement des données...
-                </span>
-              )}
+              {playersListInfo?.map((player, index) => (
+                <PlayerListCard key={index} player={player} />
+              ))}
             </Fade>
           </div>
         </div>

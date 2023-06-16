@@ -1,6 +1,6 @@
 .announcementCard {
   margin: 2%;
-  box-shadow: 4px 3px 3px 0px #3F3F3F;
+  box-shadow: 4px 3px 3px 0px #3f3f3f;
   .announcementsHeader {
     padding: 1%;
     text-align: center;
@@ -11,10 +11,26 @@
     display: flex;
     align-items: center;
     font-style: italic;
+    padding: 0 1%;
+    .announcementText {
+      padding: 1%;
+    }
   }
   .announcementsFooter {
     padding: 1%;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: space-between;
+    .footerLeft {
+      width: 75%;
+    }
+    .footerRight {
+      width: 25%;
+      text-align: right;
+    }
+    .footerText {
+      margin: 0 1%;
+    }
   }
 }

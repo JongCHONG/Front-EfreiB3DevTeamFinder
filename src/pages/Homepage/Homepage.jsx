@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Fade } from "react-reveal";
 
 import Menu from "../../components/Menu/Menu";
@@ -6,8 +6,20 @@ import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard
 import ScrollToTopButton from "../../components/ScrollToTop/ScrollToTop";
 
 import HomepageStyles from "../Homepage/Homepage.module.scss";
+import { getAnnouncements } from "../../utils/helpers";
 
 const Homepage = () => {
+  const [announcements, setAnnouncements] = useState(null);
+
+  useEffect(() => {
+    const fetchAnnouncements = async () => {
+      const data = await getAnnouncements();
+      setAnnouncements(data);
+    };
+    fetchAnnouncements();
+  }, []);
+
+  const slicedAnnoucments = announcements?.slice(0, 5);
   return (
     <>
       <section className="top">
@@ -36,9 +48,9 @@ const Homepage = () => {
           </div>
           <div className={HomepageStyles.announcementsList}>
             <Fade bottom>
-              <AnnouncementCard />
-              <AnnouncementCard />
-              <AnnouncementCard />
+              {slicedAnnoucments?.map((announcement, index) => (
+                <AnnouncementCard key={index} announcement={announcement} />
+              ))}
             </Fade>
           </div>
         </div>
