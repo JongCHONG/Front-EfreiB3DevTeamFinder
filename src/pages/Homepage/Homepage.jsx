@@ -5,10 +5,10 @@ import Menu from "../../components/Menu/Menu";
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
 import ScrollToTopButton from "../../components/ScrollToTop/ScrollToTop";
 
-import HomepageStyles from "../Homepage/Homepage.module.scss";
+import HomepageStyles from "../HomePage/HomePage.module.scss";
 import { getAnnouncements } from "../../utils/helpers";
 
-const Homepage = () => {
+const HomePage = () => {
   const [announcements, setAnnouncements] = useState(null);
 
   useEffect(() => {
@@ -62,4 +62,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default HomePage;
