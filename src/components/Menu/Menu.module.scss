@@ -1,7 +1,6 @@
 .container {
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 1%;
   position: fixed;
@@ -9,15 +8,32 @@
   z-index: 1;
   -webkit-box-shadow: 0px 3px 3px 0px #00000035;
   box-shadow: 0px 3px 3px 0px #00000035;
-  .nav {
-    margin-right: 6%;
+  .logo {
+    width: 21%;
+    padding-top: 5px;
+    .img {
+      width: 100%;
+    }
   }
   a {
     text-decoration: none;
     color: white;
-    margin: 0 10%;
   }
-  .logo {
-    width: 20%;
+  .navMenu {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .navRight {
+    margin-right: 8%;
+    a {
+      margin: 0 10%;
+    }
+  }
+  .navLeft {
+    width: 80%;
+    a {
+      margin: 0 2%;
+    }
   }
 }
