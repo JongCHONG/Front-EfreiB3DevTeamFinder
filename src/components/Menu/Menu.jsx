@@ -17,7 +17,7 @@ const Menu = () => {
       </div>
       <div className={MenuStyles.navMenu}>
         <div className={MenuStyles.navLeft}>
-          <Link to="/">Annonces</Link>
+          <Link to="/announcements">Annonces</Link>
           <Link to="/playerslist">Recruter des joueurs</Link>
           <Link to="/">Trouver une équipe</Link>
         </div>
