@@ -1,0 +1,48 @@
+.teamCard {
+  a {
+    color: white;
+  }
+  margin: 2%;
+  box-shadow: 4px 3px 3px 0px #00000035;
+  .teamContainer {
+    background-color: #1e1e1e;
+    display: flex;
+    padding: 2%;
+    .rightContainer {
+      width: 100%;
+      .head {
+        display: flex;
+        margin-bottom: 2%;
+        .infos {
+          margin-right: 10%;
+        }
+      }
+      .middle {
+        margin-bottom: 2%;
+      }
+      .bottom {
+        display: flex;
+        .noMember {
+          background-color: #393939;
+          text-align: center;
+          -webkit-border-radius: 35px;
+          -moz-border-radius: 35px;
+          border-radius: 35px;
+          width: 20%;
+          margin-left: 2%;
+        }
+      }
+    }
+  }
+}
+
+.teammate {
+  background-color: #393939;
+  text-align: center;
+  -webkit-border-radius: 35px;
+  -moz-border-radius: 35px;
+  border-radius: 35px;
+  width: 13%;
+  margin-left: 2%;
+}
+

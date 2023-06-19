@@ -19,7 +19,7 @@ const Menu = () => {
         <div className={MenuStyles.navLeft}>
           <Link to="/announcements">Annonces</Link>
           <Link to="/playerslist">Recruter des joueurs</Link>
-          <Link to="/">Trouver une équipe</Link>
+          <Link to="/teamslist">Trouver une équipe</Link>
         </div>
         {connectedUser ? (
           <div className={MenuStyles.navRight}>
