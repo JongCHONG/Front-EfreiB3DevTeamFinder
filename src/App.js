@@ -10,6 +10,7 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import PlayersListPage from "./pages/PlayersListPage/PlayersListPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
+import TeamProfilePage from "./pages/TeamProfilePage/TeamProfilePage";
 
 const App = () => {
   const location = useLocation();
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/playerslist" element={<PlayersListPage />} />
             <Route path="/announcements" element={<AnnouncementsPage />} />
+            <Route path="/team-profile" element={<TeamProfilePage />} />
             {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </CSSTransition>
