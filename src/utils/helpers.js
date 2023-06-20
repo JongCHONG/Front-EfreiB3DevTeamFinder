@@ -28,6 +28,16 @@ export const getPlayersListData = async () => {
   }
 };
 
+export const getTeamsListData = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/teams");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getAnnouncements = async () => {
   try {
     const response = await fetch("http://localhost:5000/announcements");
