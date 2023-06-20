@@ -1,0 +1,25 @@
+.topContainer {
+    min-height: 100vh;
+    background-image: url("../../assets/images/background-2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    .containerTitle {
+        color: white;
+        font-size: 2rem;
+        text-align: center;
+        font-style: italic;
+        font-weight: bold;
+        background-color: #1E1E1E;
+        width: 25%;
+        padding: 1.5%;
+        margin: 4% 0 4% 2%;
+    }
+    .playersList {
+        color: white;
+        padding: 3% 6%;
+        width: 90%;
+        margin: auto;
+      }
+  }

@@ -23,7 +23,7 @@ const App = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/playerslist" element={<PlayersListPage />} />
-            <Route path="/profil" element={<UserProfilePage />} />
+            <Route path="/profil/users/:id" element={<UserProfilePage />} />
             {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </CSSTransition>
