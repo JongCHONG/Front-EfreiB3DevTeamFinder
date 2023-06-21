@@ -21,7 +21,7 @@ const AnnouncementCard = ({ announcement }) => {
       <div className={AnnouncementCardStyles.announcementsFooter}>
         <div className={AnnouncementCardStyles.footerLeft}>
           <span className={AnnouncementCardStyles.footerText}>
-            {team && `TeamLeader : ${team?.team_leader_id.username}`}
+            {team && `TeamLeader : ${team?.team_leader_id?.username}`}
           </span>
           <span className={AnnouncementCardStyles.footerText}>
             Region : {team ? team?.region : user?.region}
