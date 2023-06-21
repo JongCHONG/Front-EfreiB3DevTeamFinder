@@ -7,7 +7,7 @@ import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard
 import { getAnnouncements } from "../../utils/helpers";
 import Button from "../../components/Button/Button";
 
-import moment from 'moment';
+import moment from "moment";
 
 const TeamProfilePage = (announcement) => {
   const [teamInfo, setTeamInfo] = useState(null);
@@ -87,12 +87,8 @@ const TeamProfilePage = (announcement) => {
                     className={TeamProfilePageStyles.picture}
                     onClick={handlePictureClick}
                   />
-                  <div
-                    className={TeamProfilePageStyles.changePicture}
-                    onClick={handlePictureClick}
-                  >
-                    <i className="fas fa-camera" />
-                  </div>
+                  <i className="fas fa-camera" onClick={handlePictureClick} />
+
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -109,8 +105,14 @@ const TeamProfilePage = (announcement) => {
                   <p>Description: {teamInfo?.description}</p>
                   <p>Région: {teamInfo?.region}</p>
                   <p>Disponibilité: {teamInfo?.availability}</p>
-                  <p>Créée le: {moment(teamInfo?.createddAt).format('DD/MM/YYYY')}</p>
-                  <p>Mise à jour le: {moment(teamInfo?.updatedAt).format('DD/MM/YYYY')}</p>
+                  <p>
+                    Créée le:{" "}
+                    {moment(teamInfo?.createddAt).format("DD/MM/YYYY")}
+                  </p>
+                  <p>
+                    Mise à jour le:{" "}
+                    {moment(teamInfo?.updatedAt).format("DD/MM/YYYY")}
+                  </p>
                 </div>
                 <div className={TeamProfilePageStyles.teamMates}>
                   <p>Membres de l'équipe:</p>
