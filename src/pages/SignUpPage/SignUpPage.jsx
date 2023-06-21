@@ -87,8 +87,6 @@ const SignUpPage = () => {
     }
   };
 
-  // console.log(formik.values);
-  // console.log(formik.errors);
   return (
     <div className={SignUpPageStyles.container}>
       <form onSubmit={formik.handleSubmit} className={SignUpPageStyles.form}>

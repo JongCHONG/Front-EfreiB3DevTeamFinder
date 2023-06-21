@@ -10,7 +10,7 @@ const AnnouncementCard = ({ announcement }) => {
   return (
     <div className={AnnouncementCardStyles.announcementCard}>
       <div className={AnnouncementCardStyles.announcementsHeader}>
-        {team ? "Team : " + team.name : "Joueur : " + user?.username}
+        {team ? "Team : " + team?.name : "Joueur : " + user?.username}
       </div>
       <div className={AnnouncementCardStyles.announcementsContainer}>
         <img src={logoDefault} alt="logo" />
@@ -21,13 +21,13 @@ const AnnouncementCard = ({ announcement }) => {
       <div className={AnnouncementCardStyles.announcementsFooter}>
         <div className={AnnouncementCardStyles.footerLeft}>
           <span className={AnnouncementCardStyles.footerText}>
-            {team && `TeamLeader : ${team.team_leader_id?.username}`}
+            {team && `TeamLeader : ${team?.team_leader_id?.username}`}
           </span>
           <span className={AnnouncementCardStyles.footerText}>
-            Region : {team ? team.region : user.region}
+            Region : {team ? team?.region : user?.region}
           </span>
           <span className={AnnouncementCardStyles.footerText}>
-            Disponibilités : {team ? team.availability : user.availability}
+            Disponibilités : {team ? team?.availability : user?.availability}
           </span>
         </div>
         <div className={AnnouncementCardStyles.footerRight}>
