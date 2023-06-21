@@ -7,6 +7,8 @@ import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard
 import { getAnnouncements } from "../../utils/helpers";
 import Button from "../../components/Button/Button";
 
+import moment from 'moment';
+
 const TeamProfilePage = (announcement) => {
   const [teamInfo, setTeamInfo] = useState(null);
   const [profilePicture, setProfilePicture] = useState(defaultAvatar);
@@ -112,8 +114,8 @@ const TeamProfilePage = (announcement) => {
                   <p>Description: {teamInfo?.description}</p>
                   <p>Région: {teamInfo?.region}</p>
                   <p>Disponibilité: {teamInfo?.availability}</p>
-                  <p>Créer le: {teamInfo?.createdAt}</p>
-                  <p>Mise à jour le: {teamInfo?.updatedAt}</p>
+                  <p>Créée le: {moment(teamInfo?.createddAt).format('DD/MM/YYYY')}</p>
+                  <p>Mise à jour le: {moment(teamInfo?.updatedAt).format('DD/MM/YYYY')}</p>
                 </div>
                 <div className={TeamProfilePageStyles.teamMates}>
                   <p>Membres de l'équipe:</p>
