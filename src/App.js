@@ -10,6 +10,7 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import PlayersListPage from "./pages/PlayersListPage/PlayersListPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
+import TeamProfilePage from "./pages/TeamProfilePage/TeamProfilePage";
 import TeamsListPage from "./pages/TeamsListPage/TeamsListPage";
 import CreateTeamPage from "./pages/CreateTeamPage/CreateTeamPage";
 
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/playerslist" element={<PlayersListPage />} />
             <Route path="/announcements" element={<AnnouncementsPage />} />
+            <Route path="/team-profile/:id" element={<TeamProfilePage />} />
             <Route path="/teamslist" element={<TeamsListPage />} />
             <Route path="/create/team" element={<CreateTeamPage />} />
             {/* <Route path="*" element={<NotFound />} /> */}
