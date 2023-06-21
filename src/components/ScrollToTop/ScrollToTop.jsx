@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -22,9 +23,12 @@ const ScrollToTopButton = () => {
   }, []);
 
   return (
-    <button className={`scroll-to-top-button ${isVisible ? 'visible' : ''}`} onClick={scrollToTop}>
-      Scroll to Top
-    </button>
+    <button
+  className={`scroll-to-top-button ${isVisible ? 'visible' : ''}`}
+  onClick={scrollToTop}
+>
+  Scroll to Top
+</button>
   );
 };
 
