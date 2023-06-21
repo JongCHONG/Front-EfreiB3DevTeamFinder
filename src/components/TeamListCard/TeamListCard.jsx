@@ -7,7 +7,7 @@ import logoDefault from "../../assets/images/logo-announcement-default.png";
 const TeamListCard = ({ team }) => {
   const teammates = team.teammates?.map((teammate) => (
     <div className={TeamListStyles.teammate} key={teammate._id}>
-      <Link to="/">{teammate.username}</Link>
+      <Link to="/">{teammate?.username}</Link>
     </div>
   ));
 
@@ -23,7 +23,7 @@ const TeamListCard = ({ team }) => {
               <Link to="/">{team.name}</Link>
             </span>
             <span className={TeamListStyles.infos}>
-              Team Leader: <Link to="/">{team.team_leader_id.username}</Link>
+              Team Leader: <Link to="/">{team?.team_leader_id?.username}</Link>
             </span>
             <span className={TeamListStyles.infos}>Région: {team.region}</span>
             <span className={TeamListStyles.infos}>
