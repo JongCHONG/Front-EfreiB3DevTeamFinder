@@ -25,7 +25,7 @@ const App = () => {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/playerslist" element={<PlayersListPage />} />
             <Route path="/announcements" element={<AnnouncementsPage />} />
-            <Route path="/team-profile" element={<TeamProfilePage />} />
+            <Route path="/team-profile/:id" element={<TeamProfilePage />} />
             {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </CSSTransition>
