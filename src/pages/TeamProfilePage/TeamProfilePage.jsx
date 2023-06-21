@@ -29,9 +29,7 @@ const TeamProfilePage = (announcement) => {
       try {
         const response = await fetch(`http://localhost:5000/teams/${id}`);
         const data = await response.json();
-        console.log("data", data);
         setTeamInfo(data);
-        console.log("teaminfo", teamInfo);
       } catch (error) {
         console.log(error);
       }
@@ -40,12 +38,10 @@ const TeamProfilePage = (announcement) => {
   }, [id]);
 
   const handleFileChange = (e) => {
-    console.log("File selected");
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.onloadend = () => {
-        console.log("Image loaded");
         setProfilePicture(reader.result);
       };
       reader.readAsDataURL(file);
@@ -71,7 +67,6 @@ const TeamProfilePage = (announcement) => {
     });
   };
 
-  console.log(id);
   return (
     <>
       <TemplatePage />
