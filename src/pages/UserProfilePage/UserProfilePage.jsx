@@ -8,7 +8,6 @@ import UserProfilePageStyles from "../UserProfilePage/UserProfilePage.module.scs
 import TemplatePage from "../../components/TemplatePage/TemplatePage";
 import defaultAvatar from "../../assets/images/logo-announcement-default.png";
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
-import Button from "../../components/Button/Button";
 import ButtonNavigate from "../../components/ButtonNavigate/ButtonNavigate";
 
 import { getAnnouncements } from "../../utils/helpers";
@@ -66,7 +65,6 @@ const UserProfilePage = () => {
   return (
     <>
       <TemplatePage>
-        <section className="middle">
           <div className={UserProfilePageStyles.topContainer}>
             <div className={UserProfilePageStyles.profileContainer}>
               <div className={UserProfilePageStyles.titleBox}>
@@ -110,22 +108,30 @@ const UserProfilePage = () => {
                           <p>Discord : {userInfo.discord || "non renseigné"}</p>
                           <p>Valorant ID : {userInfo.valorant_id}</p>
                           <p>
-                          Equipe(s) créée(s) : {" "}
+                            Equipe(s) créée(s) :{" "}
                             {teamCreated || "aucune équipe créée"}
                           </p>
                           <p>Région : {userInfo?.region || "non renseigné"}</p>
                           <p>
-                            Disponibilités : {userInfo?.availability?.join() || "non renseigné"}
+                            Disponibilités :{" "}
+                            {userInfo?.availability?.join() || "non renseigné"}
                           </p>
                           <p>
-                            Date de création : {moment(userInfo.createdAt).format("DD/MM/YYYY")}
+                            Date de création :{" "}
+                            {moment(userInfo.createdAt).format("DD/MM/YYYY")}
                           </p>
                           <p>
-                            Dernière mise à jour : {moment(userInfo.updatedAt).format("DD/MM/YYYY")}
+                            Dernière mise à jour :{" "}
+                            {moment(userInfo.updatedAt).format("DD/MM/YYYY")}
                           </p>
                         </div>
-                        <div className={UserProfilePageStyles.modifyIcon}>
-                          <i className="fas fa-pen" />
+                        <div className={UserProfilePageStyles.button}>
+                          <ButtonNavigate text="Modifier les infos" />
+                          <ButtonNavigate text="Publier une annonce" />
+                          <ButtonNavigate
+                            text="Créer son équipe"
+                            link="/create/team"
+                          />
                         </div>
                       </div>
 
@@ -135,10 +141,6 @@ const UserProfilePage = () => {
                           announcement={announcement}
                         />
                       ))}
-                      <div className={UserProfilePageStyles.button}>
-                        <Button text="Publier une annonce" />
-                        <ButtonNavigate text="Créer son équipe" link="/create/team"/>
-                      </div>
                     </div>
                   </>
                 ) : (
@@ -149,7 +151,6 @@ const UserProfilePage = () => {
               </Fade>
             </div>
           </div>
-        </section>
       </TemplatePage>
     </>
   );
