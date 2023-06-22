@@ -6,15 +6,17 @@ import { useParams } from "react-router-dom";
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
 import { getAnnouncements, getTeamById } from "../../utils/helpers";
 import Button from "../../components/Button/Button";
-
 import moment from "moment";
 
-const TeamProfilePage = (announcement) => {
+import FormulaireTeam from "../../components/FormulaireTeam/Formulaire"; // Import the Formulaire component
+
+const TeamProfilePage = () => {
   const [teamInfo, setTeamInfo] = useState(null);
   const [profilePicture, setProfilePicture] = useState(defaultAvatar);
   const fileInputRef = useRef(null);
   const { id } = useParams();
   const [announcements, setAnnouncements] = useState(null);
+  const [showPopup, setShowPopup] = useState(false); // State to control the visibility of the popup
 
   useEffect(() => {
     const fetchTeamInfo = async () => {
@@ -24,10 +26,12 @@ const TeamProfilePage = (announcement) => {
 
     const fetchAnnouncements = async () => {
       const announcementsData = await getAnnouncements();
-      const filteredArray = announcementsData.filter(
-        (item) => item?.team?._id === id
-      );
-      setAnnouncements(filteredArray);
+      if (announcementsData) {
+        const filteredArray = announcementsData.filter(
+          (item) => item?.team?._id === id
+        );
+        setAnnouncements(filteredArray);
+      }
     };
 
     fetchAnnouncements();
@@ -62,6 +66,14 @@ const TeamProfilePage = (announcement) => {
       }
       return null;
     });
+  };
+
+  const handleModifyClick = () => {
+    setShowPopup(true); // Show the popup when the modify icon is clicked
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false); // Close the popup
   };
 
   return (
@@ -120,7 +132,10 @@ const TeamProfilePage = (announcement) => {
                     <Button text="Supprimer des membres" />
                     <Button text="Supprimer son équipe" />
                   </div>
-                  <div className={TeamProfilePageStyles.modifyIcon}>
+                  <div
+                    className={TeamProfilePageStyles.modifyIcon}
+                    onClick={handleModifyClick} // Add the click event handler
+                  >
                     <i className="fas fa-pen" />
                   </div>
                 </div>
@@ -133,6 +148,8 @@ const TeamProfilePage = (announcement) => {
           </div>
         </section>
       </TemplatePage>
+      {showPopup && <FormulaireTeam onClose={handleClosePopup} />}{" "}
+      {/* Render the Formulaire component when showPopup is true */}
     </>
   );
 };
