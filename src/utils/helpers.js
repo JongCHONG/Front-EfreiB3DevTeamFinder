@@ -76,6 +76,16 @@ export const getTeamById = async (id) => {
   }
 };
 
+export const getUserById = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:5000/users/${id}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const checkUserLoggedIn = () => {
   const user = localStorage.getItem("TeamFinder");
 

@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from "react";
-import TemplatePage from "../../components/TemplatePage/TemplatePage";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
+import moment from "moment";
+
+import { UserContext } from "../../contexts/UserContext";
+
 import TeamProfilePageStyles from "./TeamProfilePage.module.scss";
 import defaultAvatar from "../../assets/images/defaultAvatar.png";
-import { useParams } from "react-router-dom";
+
+import TemplatePage from "../../components/TemplatePage/TemplatePage";
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
-import { getAnnouncements, getTeamById } from "../../utils/helpers";
 import Button from "../../components/Button/Button";
-import moment from "moment";
-import FormulaireTeam from "../../components/FormulaireTeam/Formulaire";
+import ModifyTeam from "../../components/ModifyTeam/ModifyTeam";
+
+import { getAnnouncements, getTeamById } from "../../utils/helpers";
 
 const TeamProfilePage = ({ onClose }) => {
   const [teamInfo, setTeamInfo] = useState(null);
@@ -16,6 +21,7 @@ const TeamProfilePage = ({ onClose }) => {
   const { id } = useParams();
   const [announcements, setAnnouncements] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const { user } = useContext(UserContext);
 
   const fetchTeamInfo = async () => {
     const teamInfoData = await getTeamById(id);
@@ -31,6 +37,10 @@ const TeamProfilePage = ({ onClose }) => {
       setAnnouncements(filteredArray);
     };
 
+    const fetchTeamInfo = async () => {
+      const teamInfoData = await getTeamById(id);
+      setTeamInfo(teamInfoData);
+    };
     fetchAnnouncements();
     fetchTeamInfo();
   }, [id]);
@@ -74,6 +84,8 @@ const TeamProfilePage = ({ onClose }) => {
     });
   };
 
+  const isCreator = user?.teams.some((team) => team._id === teamInfo?._id);
+
   return (
     <>
       <TemplatePage>
@@ -104,7 +116,7 @@ const TeamProfilePage = ({ onClose }) => {
                     />
                   </div>
 
-                  <div className={TeamProfilePageStyles.teamName}>
+                  <div className={TeamProfilePageStyles.teamInfos}>
                     <h1>{teamInfo?.name}</h1>
 
                     <p>Team Leader: {teamInfo?.team_leader_id?.username}</p>
@@ -125,7 +137,12 @@ const TeamProfilePage = ({ onClose }) => {
                     <ul>{renderUniqueUsernames()}</ul>
                   </div>
                   <div className={TeamProfilePageStyles.buttons}>
-                    <Button text="Modifier les infos" onClick={handleModifyClick}/>
+                    {isCreator && (
+                      <Button
+                        text="Modifier les infos"
+                        onClick={handleModifyClick}
+                      />
+                    )}
                     <Button text="Publier une annonce" />
                     <Button text="Ajouter des membres" />
                     <Button text="Supprimer des membres" />
@@ -142,7 +159,7 @@ const TeamProfilePage = ({ onClose }) => {
         </section>
       </TemplatePage>
 
-      {showPopup && <FormulaireTeam teamId={id} onClose={handleClosePopup} />}
+      {showPopup && <ModifyTeam teamId={id} onClose={handleClosePopup} />}
     </>
   );
 };

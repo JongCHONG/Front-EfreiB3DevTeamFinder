@@ -86,7 +86,7 @@ const CreateTeamPage = () => {
           />
           <div className={CreateTeamPageStyles.error}>{formik.errors.name}</div>
 
-          <input
+          <textarea
             type="text"
             id="description"
             name="description"

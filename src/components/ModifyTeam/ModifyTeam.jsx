@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import FormulaireStyle from "./Formulaire.module.scss";
+import FormulaireStyle from "./ModifyTeam.module.scss";
 import Button from "../Button/Button";
 import { updateTeamById, checkUserLoggedIn } from "../../utils/helpers";
 
-const Formulaire = ({ onClose, teamId }) => {
+const ModifyTeam = ({ onClose, teamId }) => {
   const user = checkUserLoggedIn();
 
   const [name, setname] = useState("");
@@ -44,9 +44,10 @@ const Formulaire = ({ onClose, teamId }) => {
           />
         </label>
         <label>
-          Description:
-          <input
+          Description: <br/>
+          <textarea
             type="text"
+            style={{width: "100%"}}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -76,8 +77,8 @@ const Formulaire = ({ onClose, teamId }) => {
   );
 };
 
-Formulaire.propTypes = {
+ModifyTeam.propTypes = {
   onClose: PropTypes.func.isRequired,
   teamId: PropTypes.string.isRequired,
 };
-export default Formulaire;
+export default ModifyTeam;
