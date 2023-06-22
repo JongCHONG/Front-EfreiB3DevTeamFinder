@@ -54,12 +54,8 @@ const Formulaire = ({ onClose }) => {
           />
         </label>
         <div className={FormulaireStyle.Button}>
-          <Button onClick={handleSave} text="Sauvegarder">
-            Save
-          </Button>
-          <Button onClick={handleCancel} text="Annuler">
-            Cancel
-          </Button>
+          <Button onClick={handleSave} text="Sauvegarder" />
+          <Button onClick={handleCancel} text="Annuler" />
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ import Button from "../../components/Button/Button";
 import moment from "moment";
 import FormulaireTeam from "../../components/FormulaireTeam/Formulaire";
 
-const TeamProfilePage = () => {
+const TeamProfilePage = ({ onClose }) => {
   const [teamInfo, setTeamInfo] = useState(null);
   const [profilePicture, setProfilePicture] = useState(defaultAvatar);
   const [fileInputRef, setFileInputRef] = useState(null);
@@ -57,6 +57,8 @@ const TeamProfilePage = () => {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
+
+  console.log(handleClosePopup, "ok");
 
   const renderUniqueUsernames = () => {
     const renderedUsernames = [];
