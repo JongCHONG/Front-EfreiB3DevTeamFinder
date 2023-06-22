@@ -17,7 +17,8 @@ const Footer = () => {
         <img src={logoYoutube} className={FooterStyles.logo} alt="Youtube" />
       </div>
       <div className={FooterStyles.centerStyle}>
-        TEAMFINDER 2023
+        TEAMFINDER 2023 <br/>
+        Site réalisé par Jong, Bakary, Réléna, Grégoire, Pornchai
       </div>
       <div className={FooterStyles.rightStyle}>
         <img src={logoMail} className={FooterStyles.mailIconStyle} alt="Mail Icon" />

@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+
+import ScrollToTopStyles from "./ScrollToTop.module.scss";
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,22 +17,25 @@ const ScrollToTopButton = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
   React.useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <button
-  className={`scroll-to-top-button ${isVisible ? 'visible' : ''}`}
-  onClick={scrollToTop}
->
-  Scroll to Top
-</button>
+    <>
+    {isVisible && (
+      <FontAwesomeIcon
+        icon={faArrowUp}
+        onClick={scrollToTop}
+        className={ScrollToTopStyles.buttonStyle}
+      />
+    )}
+  </>
   );
 };
 
