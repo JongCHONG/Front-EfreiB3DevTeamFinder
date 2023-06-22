@@ -65,3 +65,7 @@ export const checkUserLoggedIn = () => {
 
   return userData;
 };
+
+export const logout = async () => {
+  localStorage.removeItem('TeamFinder');
+}
