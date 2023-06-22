@@ -2,14 +2,26 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import FormulaireStyle from "./Formulaire.module.scss";
 import Button from "../Button/Button";
+import { updateTeamById } from "../../utils/helpers";
 
-const Formulaire = ({ onClose }) => {
+const Formulaire = ({ onClose, teamId }) => {
   const [teamLeader, setTeamLeader] = useState("");
   const [description, setDescription] = useState("");
   const [region, setRegion] = useState("");
   const [disponibilite, setDisponibilite] = useState("");
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    // Prepare the form data object
+    const formData = {
+      teamLeader,
+      description,
+      region,
+      disponibilite,
+    };
+
+    // Call the updateTeam function with the form data and teamId
+    await updateTeamById(teamId, formData);
+
     onClose();
   };
 
@@ -64,6 +76,6 @@ const Formulaire = ({ onClose }) => {
 
 Formulaire.propTypes = {
   onClose: PropTypes.func.isRequired,
+  teamId: PropTypes.string.isRequired,
 };
-
 export default Formulaire;

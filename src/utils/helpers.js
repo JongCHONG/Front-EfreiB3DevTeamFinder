@@ -18,6 +18,22 @@ export const login = async (username, password) => {
   }
 };
 
+export const updateTeamById = async (id, updatedData) => {
+  try {
+    const response = await fetch("http://localhost:5000/teams/${id}", {
+      method: "patch",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getPlayersListData = async () => {
   try {
     const response = await fetch("http://localhost:5000/users");
@@ -56,7 +72,7 @@ export const getTeamById = async (id) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const checkUserLoggedIn = () => {
   const user = localStorage.getItem("TeamFinder");

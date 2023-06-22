@@ -17,12 +17,12 @@ const TeamProfilePage = ({ onClose }) => {
   const [announcements, setAnnouncements] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
-  useEffect(() => {
-    const fetchTeamInfo = async () => {
-      const teamInfoData = await getTeamById(id);
-      setTeamInfo(teamInfoData);
-    };
+  const fetchTeamInfo = async () => {
+    const teamInfoData = await getTeamById(id);
+    setTeamInfo(teamInfoData);
+  };
 
+  useEffect(() => {
     const fetchAnnouncements = async () => {
       const announcementsData = await getAnnouncements();
       const filteredArray = announcementsData?.filter(
@@ -56,9 +56,8 @@ const TeamProfilePage = ({ onClose }) => {
 
   const handleClosePopup = () => {
     setShowPopup(false);
+    fetchTeamInfo();
   };
-
-  console.log(handleClosePopup, "ok");
 
   const renderUniqueUsernames = () => {
     const renderedUsernames = [];
@@ -148,7 +147,7 @@ const TeamProfilePage = ({ onClose }) => {
         </section>
       </TemplatePage>
 
-      {showPopup && <FormulaireTeam onClose={handleClosePopup} />}
+      {showPopup && <FormulaireTeam teamId={id} onClose={handleClosePopup} />}
     </>
   );
 };
