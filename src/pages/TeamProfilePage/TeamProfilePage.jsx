@@ -80,7 +80,7 @@ const TeamProfilePage = (announcement) => {
                 <div className={TeamProfilePageStyles.profilePicture}>
                   <img
                     src={profilePicture}
-                    alt="Profile Picture"
+                    alt="Profile"
                     className={TeamProfilePageStyles.picture}
                     onClick={handlePictureClick}
                   />
@@ -115,6 +115,12 @@ const TeamProfilePage = (announcement) => {
                   <p>Membres de l'équipe:</p>
                   <ul>{renderUniqueUsernames()}</ul>
                 </div>
+                <div className={TeamProfilePageStyles.button}>
+                <Button text="Publier une annonce" />
+                <Button text="Ajouter des membres" />
+                <Button text="Supprimer des membres" />
+                <Button text="Supprimer son équipe" />
+              </div>
                 <div className={TeamProfilePageStyles.modifyIcon}>
                   <i className="fas fa-pen" />
                 </div>
@@ -123,12 +129,7 @@ const TeamProfilePage = (announcement) => {
               {announcements?.map((announcement, index) => (
                 <AnnouncementCard key={index} announcement={announcement} />
               ))}
-              <div className={TeamProfilePageStyles.button}>
-                <Button text="Publier une annonce" />
-                <Button text="Ajouter des membres" />
-                <Button text="Supprimer des membres" />
-                <Button text="Supprimer son équipe" />
-              </div>
+
             </div>
           </div>
         </div>
