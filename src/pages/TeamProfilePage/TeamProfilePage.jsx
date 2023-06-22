@@ -112,11 +112,11 @@ const TeamProfilePage = ({ onClose }) => {
                     <p>Région: {teamInfo?.region}</p>
                     <p>Disponibilité: {teamInfo?.availability}</p>
                     <p>
-                      Créée le:{" "}
+                      Créée le:
                       {moment(teamInfo?.createddAt).format("DD/MM/YYYY")}
                     </p>
                     <p>
-                      Mise à jour le:{" "}
+                      Mise à jour le:
                       {moment(teamInfo?.updatedAt).format("DD/MM/YYYY")}
                     </p>
                   </div>
@@ -124,17 +124,12 @@ const TeamProfilePage = ({ onClose }) => {
                     <p>Membres de l'équipe:</p>
                     <ul>{renderUniqueUsernames()}</ul>
                   </div>
-                  <div className={TeamProfilePageStyles.button}>
+                  <div className={TeamProfilePageStyles.buttons}>
+                    <Button text="Modifier les infos" onClick={handleModifyClick}/>
                     <Button text="Publier une annonce" />
                     <Button text="Ajouter des membres" />
                     <Button text="Supprimer des membres" />
                     <Button text="Supprimer son équipe" />
-                  </div>
-                  <div
-                    className={TeamProfilePageStyles.modifyIcon}
-                    onClick={handleModifyClick}
-                  >
-                    <i className="fas fa-pen" />
                   </div>
                 </div>
 

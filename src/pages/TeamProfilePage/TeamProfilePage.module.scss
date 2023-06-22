@@ -43,6 +43,7 @@
       .AnnouncementCard {
         display: flex;
         align-items: center;
+        justify-content: space-around;
       }
 
       .profilePicture {
@@ -173,7 +174,7 @@
         cursor: pointer;
       }
 
-      .button {
+      .buttons {
         width: 20%;
         padding: 10px 10px;
         gap: 10px;

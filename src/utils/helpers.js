@@ -18,12 +18,14 @@ export const login = async (username, password) => {
   }
 };
 
-export const updateTeamById = async (id, updatedData) => {
+export const updateTeamById = async (id, updatedData, token) => {
+  console.log(updatedData);
   try {
-    const response = await fetch("http://localhost:5000/teams/${id}", {
-      method: "patch",
+    const response = await fetch(`http://localhost:5000/teams/${id}`, {
+      method: "put",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify(updatedData),
     });

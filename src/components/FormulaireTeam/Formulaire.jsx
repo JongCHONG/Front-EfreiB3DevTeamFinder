@@ -2,25 +2,27 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import FormulaireStyle from "./Formulaire.module.scss";
 import Button from "../Button/Button";
-import { updateTeamById } from "../../utils/helpers";
+import { updateTeamById, checkUserLoggedIn } from "../../utils/helpers";
 
 const Formulaire = ({ onClose, teamId }) => {
-  const [teamLeader, setTeamLeader] = useState("");
+  const user = checkUserLoggedIn();
+
+  const [name, setname] = useState("");
   const [description, setDescription] = useState("");
   const [region, setRegion] = useState("");
-  const [disponibilite, setDisponibilite] = useState("");
+  const [availability, setAvailability] = useState("");
 
   const handleSave = async () => {
     // Prepare the form data object
     const formData = {
-      teamLeader,
+      name,
       description,
       region,
-      disponibilite,
+      availability,
     };
 
     // Call the updateTeam function with the form data and teamId
-    await updateTeamById(teamId, formData);
+    await updateTeamById(teamId, formData, user.token);
 
     onClose();
   };
@@ -34,11 +36,11 @@ const Formulaire = ({ onClose, teamId }) => {
       <div className={FormulaireStyle.PopupContent}>
         <h2>Profil d'équipe</h2>
         <label>
-          Team Leader:
+          Team name:
           <input
             type="text"
-            value={teamLeader}
-            onChange={(e) => setTeamLeader(e.target.value)}
+            value={name}
+            onChange={(e) => setname(e.target.value)}
           />
         </label>
         <label>
@@ -61,8 +63,8 @@ const Formulaire = ({ onClose, teamId }) => {
           Disponibilité:
           <input
             type="text"
-            value={disponibilite}
-            onChange={(e) => setDisponibilite(e.target.value)}
+            value={availability}
+            onChange={(e) => setAvailability(e.target.value)}
           />
         </label>
         <div className={FormulaireStyle.Button}>
