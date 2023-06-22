@@ -10,9 +10,10 @@ const Formulaire = ({ onClose }) => {
   const [disponibilite, setDisponibilite] = useState("");
 
   const handleSave = () => {
-    // Perform save operation with the form data
-    // You can use the values of `teamLeader`, `description`, `region`, and `disponibilite`
-    // Close the popup after saving
+    onClose();
+  };
+
+  const handleCancel = () => {
     onClose();
   };
 
@@ -55,6 +56,9 @@ const Formulaire = ({ onClose }) => {
         <div className={FormulaireStyle.Button}>
           <Button onClick={handleSave} text="Sauvegarder">
             Save
+          </Button>
+          <Button onClick={handleCancel} text="Annuler">
+            Cancel
           </Button>
         </div>
       </div>

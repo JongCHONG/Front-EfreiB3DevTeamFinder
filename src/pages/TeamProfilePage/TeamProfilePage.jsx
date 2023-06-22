@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import TemplatePage from "../../components/TemplatePage/TemplatePage";
 import TeamProfilePageStyles from "./TeamProfilePage.module.scss";
 import defaultAvatar from "../../assets/images/defaultAvatar.png";
@@ -7,16 +7,15 @@ import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard
 import { getAnnouncements, getTeamById } from "../../utils/helpers";
 import Button from "../../components/Button/Button";
 import moment from "moment";
-
-import FormulaireTeam from "../../components/FormulaireTeam/Formulaire"; // Import the Formulaire component
+import FormulaireTeam from "../../components/FormulaireTeam/Formulaire";
 
 const TeamProfilePage = () => {
   const [teamInfo, setTeamInfo] = useState(null);
   const [profilePicture, setProfilePicture] = useState(defaultAvatar);
-  const fileInputRef = useRef(null);
+  const [fileInputRef, setFileInputRef] = useState(null);
   const { id } = useParams();
   const [announcements, setAnnouncements] = useState(null);
-  const [showPopup, setShowPopup] = useState(false); // State to control the visibility of the popup
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const fetchTeamInfo = async () => {
@@ -26,12 +25,10 @@ const TeamProfilePage = () => {
 
     const fetchAnnouncements = async () => {
       const announcementsData = await getAnnouncements();
-      if (announcementsData) {
-        const filteredArray = announcementsData.filter(
-          (item) => item?.team?._id === id
-        );
-        setAnnouncements(filteredArray);
-      }
+      const filteredArray = announcementsData?.filter(
+        (item) => item?.team?._id === id
+      );
+      setAnnouncements(filteredArray);
     };
 
     fetchAnnouncements();
@@ -53,6 +50,14 @@ const TeamProfilePage = () => {
     fileInputRef.current.click();
   };
 
+  const handleModifyClick = () => {
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
   const renderUniqueUsernames = () => {
     const renderedUsernames = [];
     return teamInfo?.teammates?.map((teammate, index) => {
@@ -66,14 +71,6 @@ const TeamProfilePage = () => {
       }
       return null;
     });
-  };
-
-  const handleModifyClick = () => {
-    setShowPopup(true); // Show the popup when the modify icon is clicked
-  };
-
-  const handleClosePopup = () => {
-    setShowPopup(false); // Close the popup
   };
 
   return (
@@ -98,7 +95,7 @@ const TeamProfilePage = () => {
                     <i className="fas fa-camera" onClick={handlePictureClick} />
 
                     <input
-                      ref={fileInputRef}
+                      ref={setFileInputRef}
                       type="file"
                       accept="image/*"
                       style={{ display: "none" }}
@@ -134,7 +131,7 @@ const TeamProfilePage = () => {
                   </div>
                   <div
                     className={TeamProfilePageStyles.modifyIcon}
-                    onClick={handleModifyClick} // Add the click event handler
+                    onClick={handleModifyClick}
                   >
                     <i className="fas fa-pen" />
                   </div>
@@ -148,8 +145,8 @@ const TeamProfilePage = () => {
           </div>
         </section>
       </TemplatePage>
-      {showPopup && <FormulaireTeam onClose={handleClosePopup} />}{" "}
-      {/* Render the Formulaire component when showPopup is true */}
+
+      {showPopup && <FormulaireTeam onClose={handleClosePopup} />}
     </>
   );
 };
