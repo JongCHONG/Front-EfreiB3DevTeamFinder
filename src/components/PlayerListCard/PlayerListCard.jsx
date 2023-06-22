@@ -11,7 +11,7 @@ const PlayerListCard = ({ player }) => {
       <div className={PlayerListStyles.playersContainer}>
       <FontAwesomeIcon icon={faCircleUser} size='lg' />
           <div className={PlayerListStyles.justifyBetween}>
-            <span style={{width:"200%"}}>
+            <span style={{width:"30%"}}>
               <Link
                 to={`/profil/${player._id}`}
                 style={{color:"white"}}
@@ -19,9 +19,9 @@ const PlayerListCard = ({ player }) => {
                 {player.username}
               </Link>
             </span>
-            <span style={{width:"200%"}}>Rank: {player.rank}</span>
-            <span style={{width:"200%"}}>Discord: {player.discord}</span>
-            <span style={{width:"200%"}}>Région: {player.region}</span>
+            <span style={{width:"30%"}}>Rank: {player.rank}</span>
+            <span style={{width:"50%"}}>Discord: {player.discord}</span>
+            <span style={{width:"25%"}}>Région: {player.region}</span>
           </div>
       </div>
     </div>
