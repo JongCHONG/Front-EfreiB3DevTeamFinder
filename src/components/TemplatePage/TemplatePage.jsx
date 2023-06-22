@@ -1,7 +1,11 @@
 import React from "react";
 
+import Footer from "../Footer/Footer";
+
 import Menu from "../Menu/Menu";
 import ScrollToTopButton from "../ScrollToTop/ScrollToTop";
+
+import TemplatePageStyles from "./TemplatePage.module.scss";
 
 const TemplatePage = ({ children }) => {
   return (
@@ -9,9 +13,14 @@ const TemplatePage = ({ children }) => {
       <section className="top">
         <Menu />
       </section>
-      <section className="middle">{children}</section>
+      <section className="middle">
+        {children}
+        <div className={TemplatePageStyles.arrow}>
+          <ScrollToTopButton />
+        </div>
+      </section>
       <section className="bottom">
-        <ScrollToTopButton />
+        <Footer />
       </section>
     </>
   );

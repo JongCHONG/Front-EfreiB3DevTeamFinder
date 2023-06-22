@@ -11,6 +11,10 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage"
 import PlayersListPage from "./pages/PlayersListPage/PlayersListPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
+import TeamProfilePage from "./pages/TeamProfilePage/TeamProfilePage";
+import TeamsListPage from "./pages/TeamsListPage/TeamsListPage";
+import CreateTeamPage from "./pages/CreateTeamPage/CreateTeamPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 const App = () => {
   const location = useLocation();
@@ -26,7 +30,10 @@ const App = () => {
             <Route path="/playerslist" element={<PlayersListPage />} />
             <Route path="/profil/users/:id" element={<UserProfilePage />} />
             <Route path="/announcements" element={<AnnouncementsPage />} />
-            {/* <Route path="*" element={<NotFound />} /> */}
+            <Route path="/team-profile/:id" element={<TeamProfilePage />} />
+            <Route path="/teamslist" element={<TeamsListPage />} />
+            <Route path="/create/team" element={<CreateTeamPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </CSSTransition>
       </TransitionGroup>
