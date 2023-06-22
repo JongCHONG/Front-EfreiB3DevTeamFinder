@@ -8,6 +8,7 @@ import { UserContextProvider } from "./contexts/UserContext";
 import HomePage from "./pages/HomePage/HomePage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import UserProfilePage from "./pages/UserProfilePage/UserProfilePage"
 import PlayersListPage from "./pages/PlayersListPage/PlayersListPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
 import TeamProfilePage from "./pages/TeamProfilePage/TeamProfilePage";
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/playerslist" element={<PlayersListPage />} />
+            <Route path="/profil/:id" element={<UserProfilePage />} />
             <Route path="/announcements" element={<AnnouncementsPage />} />
             <Route path="/team-profile/:id" element={<TeamProfilePage />} />
             <Route path="/teamslist" element={<TeamsListPage />} />
