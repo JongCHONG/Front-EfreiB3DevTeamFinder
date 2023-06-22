@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import MenuStyles from "./Menu.module.scss";
 import Logo from "../../assets/images/logo-teamfinder.png";
 import { checkUserLoggedIn } from "../../utils/helpers";
+import { logout } from "../../utils/helpers";
 
 const Menu = () => {
   const connectedUser = checkUserLoggedIn();
@@ -24,7 +25,7 @@ const Menu = () => {
         {connectedUser ? (
           <div className={MenuStyles.navRight}>
             <Link to="/">{connectedUser.username}</Link>
-            <Link to="/">Deconnexion</Link>
+            <span onClick={logout}><Link to="/">Déconnexion</Link></span>
           </div>
         ) : (
           <div className={MenuStyles.navRight}>
