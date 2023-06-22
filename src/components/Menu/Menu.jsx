@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+
+import { UserContext } from "../../contexts/UserContext";
 
 import MenuStyles from "./Menu.module.scss";
 import Logo from "../../assets/images/logo-teamfinder.png";
-import { checkUserLoggedIn } from "../../utils/helpers";
-import { logout } from "../../utils/helpers";
+import { checkUserLoggedIn, logout } from "../../utils/helpers";
 
 const Menu = () => {
   const connectedUser = checkUserLoggedIn();
+  const { setUser } = useContext(UserContext);
+
+  const logoutUser = async () => {
+    await logout();
+    setUser(null);
+  };
 
   return (
     <nav className={MenuStyles.container}>
@@ -25,7 +32,7 @@ const Menu = () => {
         {connectedUser ? (
           <div className={MenuStyles.navRight}>
             <Link to="/">{connectedUser.username}</Link>
-            <span onClick={logout}><Link to="/">Déconnexion</Link></span>
+            <span onClick={logoutUser}><Link to="/">Déconnexion</Link></span>
           </div>
         ) : (
           <div className={MenuStyles.navRight}>
