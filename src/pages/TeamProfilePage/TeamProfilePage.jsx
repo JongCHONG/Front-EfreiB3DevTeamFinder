@@ -4,36 +4,37 @@ import TeamProfilePageStyles from "./TeamProfilePage.module.scss";
 import defaultAvatar from "../../assets/images/defaultAvatar.png";
 import { useParams } from "react-router-dom";
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
-import { getAnnouncements } from "../../utils/helpers";
+import { getAnnouncements, getTeamById } from "../../utils/helpers";
 import Button from "../../components/Button/Button";
-
 import moment from "moment";
 
-const TeamProfilePage = (announcement) => {
+import FormulaireTeam from "../../components/FormulaireTeam/Formulaire"; // Import the Formulaire component
+
+const TeamProfilePage = () => {
   const [teamInfo, setTeamInfo] = useState(null);
   const [profilePicture, setProfilePicture] = useState(defaultAvatar);
   const fileInputRef = useRef(null);
   const { id } = useParams();
   const [announcements, setAnnouncements] = useState(null);
-
-  useEffect(() => {
-    const fetchAnnouncements = async () => {
-      const data = await getAnnouncements();
-      setAnnouncements(data);
-    };
-    fetchAnnouncements();
-  }, []);
+  const [showPopup, setShowPopup] = useState(false); // State to control the visibility of the popup
 
   useEffect(() => {
     const fetchTeamInfo = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/teams/${id}`);
-        const data = await response.json();
-        setTeamInfo(data);
-      } catch (error) {
-        console.log(error);
+      const teamInfoData = await getTeamById(id);
+      setTeamInfo(teamInfoData);
+    };
+
+    const fetchAnnouncements = async () => {
+      const announcementsData = await getAnnouncements();
+      if (announcementsData) {
+        const filteredArray = announcementsData.filter(
+          (item) => item?.team?._id === id
+        );
+        setAnnouncements(filteredArray);
       }
     };
+
+    fetchAnnouncements();
     fetchTeamInfo();
   }, [id]);
 
@@ -67,75 +68,88 @@ const TeamProfilePage = (announcement) => {
     });
   };
 
+  const handleModifyClick = () => {
+    setShowPopup(true); // Show the popup when the modify icon is clicked
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false); // Close the popup
+  };
+
   return (
     <>
-      <TemplatePage />
-
-      <section className="middle">
-        <div className={TeamProfilePageStyles.topContainer}>
-          <div className={TeamProfilePageStyles.profileContainer}>
-            <div className={TeamProfilePageStyles.titleBox}>
-              <h2 className={TeamProfilePageStyles.title}>Profil équipe</h2>
-            </div>
-
-            <div className={TeamProfilePageStyles.middleContainer}>
-              <div className={TeamProfilePageStyles.AnnouncementCard}>
-                <div className={TeamProfilePageStyles.profilePicture}>
-                  <img
-                    src={profilePicture}
-                    alt="Profile Picture"
-                    className={TeamProfilePageStyles.picture}
-                    onClick={handlePictureClick}
-                  />
-                  <i className="fas fa-camera" onClick={handlePictureClick} />
-
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    onChange={handleFileChange}
-                  />
-                </div>
-
-                <div className={TeamProfilePageStyles.teamName}>
-                  <h1>{teamInfo?.name}</h1>
-
-                  <p>Team Leader: {teamInfo?.team_leader_id?.username}</p>
-                  <p>Description: {teamInfo?.description}</p>
-                  <p>Région: {teamInfo?.region}</p>
-                  <p>Disponibilité: {teamInfo?.availability}</p>
-                  <p>
-                    Créée le:{" "}
-                    {moment(teamInfo?.createddAt).format("DD/MM/YYYY")}
-                  </p>
-                  <p>
-                    Mise à jour le:{" "}
-                    {moment(teamInfo?.updatedAt).format("DD/MM/YYYY")}
-                  </p>
-                </div>
-                <div className={TeamProfilePageStyles.teamMates}>
-                  <p>Membres de l'équipe:</p>
-                  <ul>{renderUniqueUsernames()}</ul>
-                </div>
-                <div className={TeamProfilePageStyles.modifyIcon}>
-                  <i className="fas fa-pen" />
-                </div>
+      <TemplatePage>
+        <section className="middle">
+          <div className={TeamProfilePageStyles.topContainer}>
+            <div className={TeamProfilePageStyles.profileContainer}>
+              <div className={TeamProfilePageStyles.titleBox}>
+                <h2 className={TeamProfilePageStyles.title}>Profil équipe</h2>
               </div>
 
-              {announcements?.map((announcement, index) => (
-                <AnnouncementCard key={index} announcement={announcement} />
-              ))}
-              <div className={TeamProfilePageStyles.button}>
-                <Button text="Publier une annonce" />
-                <Button text="Ajouter des membres" />
-                <Button text="Supprimer des membres" />
-                <Button text="Supprimer son équipe" />
+              <div className={TeamProfilePageStyles.middleContainer}>
+                <div className={TeamProfilePageStyles.AnnouncementCard}>
+                  <div className={TeamProfilePageStyles.profilePicture}>
+                    <img
+                      src={profilePicture}
+                      alt="Profile"
+                      className={TeamProfilePageStyles.picture}
+                      onClick={handlePictureClick}
+                    />
+                    <i className="fas fa-camera" onClick={handlePictureClick} />
+
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      onChange={handleFileChange}
+                    />
+                  </div>
+
+                  <div className={TeamProfilePageStyles.teamName}>
+                    <h1>{teamInfo?.name}</h1>
+
+                    <p>Team Leader: {teamInfo?.team_leader_id?.username}</p>
+                    <p>Description: {teamInfo?.description}</p>
+                    <p>Région: {teamInfo?.region}</p>
+                    <p>Disponibilité: {teamInfo?.availability}</p>
+                    <p>
+                      Créée le:{" "}
+                      {moment(teamInfo?.createddAt).format("DD/MM/YYYY")}
+                    </p>
+                    <p>
+                      Mise à jour le:{" "}
+                      {moment(teamInfo?.updatedAt).format("DD/MM/YYYY")}
+                    </p>
+                  </div>
+                  <div className={TeamProfilePageStyles.teamMates}>
+                    <p>Membres de l'équipe:</p>
+                    <ul>{renderUniqueUsernames()}</ul>
+                  </div>
+                  <div className={TeamProfilePageStyles.button}>
+                    <Button text="Publier une annonce" />
+                    <Button text="Ajouter des membres" />
+                    <Button text="Supprimer des membres" />
+                    <Button text="Supprimer son équipe" />
+                  </div>
+                  <div
+                    className={TeamProfilePageStyles.modifyIcon}
+                    onClick={handleModifyClick} // Add the click event handler
+                  >
+                    <i className="fas fa-pen" />
+                  </div>
+                </div>
+
+                {announcements?.map((announcement, index) => (
+                  <AnnouncementCard key={index} announcement={announcement} />
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </TemplatePage>
+      {showPopup && <FormulaireTeam onClose={handleClosePopup} />}{" "}
+      {/* Render the Formulaire component when showPopup is true */}
     </>
   );
 };

@@ -19,7 +19,6 @@ const TeamsListPage = () => {
     fetchTeamsList();
   }, []);
 
-  console.log(teamsList);
   return (
     <TemplatePage>
       <section className="middle">
