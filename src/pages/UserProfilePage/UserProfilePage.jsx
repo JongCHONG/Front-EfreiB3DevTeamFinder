@@ -9,6 +9,7 @@ import TemplatePage from "../../components/TemplatePage/TemplatePage";
 import defaultAvatar from "../../assets/images/logo-announcement-default.png";
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
 import Button from "../../components/Button/Button";
+import ButtonNavigate from "../../components/ButtonNavigate/ButtonNavigate";
 
 import { getAnnouncements } from "../../utils/helpers";
 
@@ -102,28 +103,25 @@ const UserProfilePage = () => {
                         <div className={UserProfilePageStyles.teamName}>
                           <h1>
                             {userInfo.username} -{" "}
-                            {userInfo.rank || "aucun rank"}
+                            {userInfo.rank || "Aucun rank"}
                           </h1>
 
                           <p>Mail : {userInfo.mail || "non renseigné"}</p>
                           <p>Discord : {userInfo.discord || "non renseigné"}</p>
-                          <p>Valorant ID: {userInfo.valorant_id}</p>
+                          <p>Valorant ID : {userInfo.valorant_id}</p>
                           <p>
-                            team(s) created:{" "}
-                            {teamCreated || "aucune équipe crée"}
+                          Equipe(s) créée(s) : {" "}
+                            {teamCreated || "aucune équipe créée"}
                           </p>
-                          <p>region : {userInfo?.region || "non renseigné"}</p>
+                          <p>Région : {userInfo?.region || "non renseigné"}</p>
                           <p>
-                            Disponibilités :
-                            {userInfo?.availability?.join() || "non renseigné"}
-                          </p>
-                          <p>
-                            Date de création :
-                            {moment(userInfo.createdAt).format("lll")}
+                            Disponibilités : {userInfo?.availability?.join() || "non renseigné"}
                           </p>
                           <p>
-                            Dernière mise à jour :
-                            {moment(userInfo.updatedAt).format("lll")}
+                            Date de création : {moment(userInfo.createdAt).format("DD/MM/YYYY")}
+                          </p>
+                          <p>
+                            Dernière mise à jour : {moment(userInfo.updatedAt).format("DD/MM/YYYY")}
                           </p>
                         </div>
                         <div className={UserProfilePageStyles.modifyIcon}>
@@ -139,7 +137,7 @@ const UserProfilePage = () => {
                       ))}
                       <div className={UserProfilePageStyles.button}>
                         <Button text="Publier une annonce" />
-                        <Button text="Créer son équipe" />
+                        <ButtonNavigate text="Créer son équipe" link="/create/team"/>
                       </div>
                     </div>
                   </>
