@@ -4,7 +4,7 @@ import TeamProfilePageStyles from "./TeamProfilePage.module.scss";
 import defaultAvatar from "../../assets/images/defaultAvatar.png";
 import { useParams } from "react-router-dom";
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
-import { getAnnouncements } from "../../utils/helpers";
+import { getAnnouncements, getTeamById } from "../../utils/helpers";
 import Button from "../../components/Button/Button";
 
 import moment from "moment";
@@ -17,23 +17,20 @@ const TeamProfilePage = (announcement) => {
   const [announcements, setAnnouncements] = useState(null);
 
   useEffect(() => {
-    const fetchAnnouncements = async () => {
-      const data = await getAnnouncements();
-      setAnnouncements(data);
-    };
-    fetchAnnouncements();
-  }, []);
-
-  useEffect(() => {
     const fetchTeamInfo = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/teams/${id}`);
-        const data = await response.json();
-        setTeamInfo(data);
-      } catch (error) {
-        console.log(error);
-      }
+      const teamInfoData = await getTeamById(id);
+      setTeamInfo(teamInfoData);
     };
+
+    const fetchAnnouncements = async () => {
+      const announcementsData = await getAnnouncements();
+      const filteredArray = announcementsData.filter(
+        (item) => item?.team?._id === id
+      );
+      setAnnouncements(filteredArray);
+    };
+
+    fetchAnnouncements();
     fetchTeamInfo();
   }, [id]);
 
