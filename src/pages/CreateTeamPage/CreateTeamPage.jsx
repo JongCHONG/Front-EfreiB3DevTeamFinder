@@ -16,6 +16,15 @@ const CreateTeamPage = () => {
   const [profilePicture, setProfilePicture] = useState(defaultAvatar);
   const fileInputRef = useRef(null);
   const [selectedMembers, setSelectedMembers] = useState([]);
+  const [isMembersVisible, setIsMembersVisible] = useState(false);
+
+  const handleMemberVisibilityToggle = () => {
+    setIsMembersVisible(true);
+  };
+
+  const handleSelectedMembersClick = () => {
+    // Do nothing
+  };
 
   const useRandomMembers = () => {
     useEffect(() => {
@@ -214,7 +223,10 @@ const CreateTeamPage = () => {
                 {formik.errors.availability}
               </div>
 
-              <div className={CreateTeamPageStyles.customSelect}>
+              <div
+                className={CreateTeamPageStyles.customSelect}
+                onClick={handleMemberVisibilityToggle}
+              >
                 <select
                   value={formik.values.member}
                   onChange={handleMemberChange} // Call the custom handleMemberChange function
@@ -231,16 +243,19 @@ const CreateTeamPage = () => {
                 </select>
               </div>
 
-              <div className={CreateTeamPageStyles.selectedMembers}>
+              <div
+                className={`${CreateTeamPageStyles.selectedMembers} ${
+                  isMembersVisible ? CreateTeamPageStyles.visible : ""
+                }`}
+                onClick={handleSelectedMembersClick}
+              >
                 {selectedMembers.map((member) => (
                   <div key={member.id} className={CreateTeamPageStyles.member}>
                     <span>{member.name}</span>
-                    <button
-                      className={CreateTeamPageStyles.removeButton}
+                    <i
+                      class="fas fa-trash"
                       onClick={() => handleRemoveMember(member.id)}
-                    >
-                      Remove
-                    </button>
+                    ></i>
                   </div>
                 ))}
               </div>

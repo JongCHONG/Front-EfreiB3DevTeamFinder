@@ -104,6 +104,24 @@
   }
 }
 
+.selectedMembers {
+  background-color: gray;
+  margin-top: 5px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  display: none;
+  .member {
+    span {
+      color: white;
+    }
+    i {
+      padding-left: 5px;
+      color: #ff4655;
+      cursor: pointer;
+    }
+  }
+}
+
 .error {
   color: red;
   font-size: 14px;
@@ -152,4 +170,8 @@
       border-color: #fd4454;
     }
   }
+}
+
+.visible {
+  display: block;
 }
