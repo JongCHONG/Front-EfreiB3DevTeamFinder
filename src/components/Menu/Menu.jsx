@@ -31,7 +31,7 @@ const Menu = () => {
         </div>
         {connectedUser ? (
           <div className={MenuStyles.navRight}>
-            <Link to="/">{connectedUser.username}</Link>
+            <Link to={`/profil/${connectedUser._id}`}>{connectedUser.username}</Link>
             <span onClick={logoutUser}><Link to="/">Déconnexion</Link></span>
           </div>
         ) : (
