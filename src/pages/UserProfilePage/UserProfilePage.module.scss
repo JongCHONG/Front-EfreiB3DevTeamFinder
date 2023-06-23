@@ -12,6 +12,7 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    margin-top: 5%;
 
     .titleBox {
       width: 351px;
@@ -36,6 +37,8 @@
       max-width: 1420px;
       background: white;
       padding-right: 20px;
+      padding-bottom: 1%;
+      margin-bottom: 2%;
 
       .AnnouncementCard {
         display: flex;

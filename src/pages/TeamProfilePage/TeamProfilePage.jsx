@@ -1,18 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import TemplatePage from "../../components/TemplatePage/TemplatePage";
+import TeamProfilePageStyles from "./TeamProfilePage.module.scss";
+import defaultAvatar from "../../assets/images/defaultAvatar.png";
+import { useParams, Link } from "react-router-dom";
+import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
+import { getAnnouncements, getTeamById } from "../../utils/helpers";
+import Button from "../../components/Button/Button";
 import moment from "moment";
 
 import { UserContext } from "../../contexts/UserContext";
-
-import TeamProfilePageStyles from "./TeamProfilePage.module.scss";
-import defaultAvatar from "../../assets/images/defaultAvatar.png";
-
-import TemplatePage from "../../components/TemplatePage/TemplatePage";
-import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
-import Button from "../../components/Button/Button";
 import ModifyTeam from "../../components/ModifyTeam/ModifyTeam";
-
-import { getAnnouncements, getTeamById } from "../../utils/helpers";
 
 const TeamProfilePage = ({ onClose }) => {
   const [teamInfo, setTeamInfo] = useState(null);
@@ -75,9 +72,11 @@ const TeamProfilePage = ({ onClose }) => {
       if (!renderedUsernames.includes(teammate.username)) {
         renderedUsernames.push(teammate.username);
         return (
-          <li key={index} className={TeamProfilePageStyles.teammateUsername}>
-            {teammate.username}
-          </li>
+          <Link to={`/profil/${teammate._id}`} style={{color:"#ff4454"}}>
+            <li key={index}>
+              {teammate.username}
+            </li>
+          </Link>
         );
       }
       return null;
