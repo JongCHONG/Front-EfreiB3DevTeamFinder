@@ -180,7 +180,6 @@ const TeamProfilePage = ({ onClose }) => {
                           text="Modifier les infos"
                           onClick={handleModifyClick}
                         />
-                        <Button text="Publier une annonce" />
                         <Button text="Ajouter des membres" />
                         <Button text="Supprimer des membres" />
                         <Button text="Supprimer son équipe" />
