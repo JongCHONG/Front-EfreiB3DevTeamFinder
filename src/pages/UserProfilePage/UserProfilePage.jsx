@@ -126,7 +126,7 @@ const UserProfilePage = () => {
                         </p>
                       </div>
                       <div className={UserProfilePageStyles.button}>
-                        {connectedUser._id === id && (
+                        {connectedUser?._id === id && (
                           <ButtonNavigate text="Modifier les infos" />
                         )}
                         <ButtonNavigate text="Publier une annonce" />
