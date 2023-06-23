@@ -13,7 +13,7 @@ const TemplatePage = ({ children }) => {
       <section className="top">
         <Menu />
       </section>
-      <section className="middle">
+      <section className={TemplatePageStyles.middle}>
         {children}
         <div className={TemplatePageStyles.arrow}>
           <ScrollToTopButton />

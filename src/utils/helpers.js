@@ -18,6 +18,24 @@ export const login = async (username, password) => {
   }
 };
 
+export const updateTeamById = async (id, updatedData, token) => {
+  console.log(updatedData);
+  try {
+    const response = await fetch(`http://localhost:5000/teams/${id}`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getPlayersListData = async () => {
   try {
     const response = await fetch("http://localhost:5000/users");
@@ -51,6 +69,16 @@ export const getAnnouncements = async () => {
 export const getTeamById = async (id) => {
   try {
     const response = await fetch(`http://localhost:5000/teams/${id}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserById = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:5000/users/${id}`);
     const data = await response.json();
     return data;
   } catch (error) {

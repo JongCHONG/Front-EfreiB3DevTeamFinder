@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import TemplatePage from "../../components/TemplatePage/TemplatePage";
 import TeamProfilePageStyles from "./TeamProfilePage.module.scss";
 import defaultAvatar from "../../assets/images/defaultAvatar.png";
@@ -8,32 +8,36 @@ import { getAnnouncements, getTeamById } from "../../utils/helpers";
 import Button from "../../components/Button/Button";
 import moment from "moment";
 
-import FormulaireTeam from "../../components/FormulaireTeam/Formulaire"; // Import the Formulaire component
+import { UserContext } from "../../contexts/UserContext";
+import ModifyTeam from "../../components/ModifyTeam/ModifyTeam";
 
-const TeamProfilePage = () => {
+const TeamProfilePage = ({ onClose }) => {
   const [teamInfo, setTeamInfo] = useState(null);
   const [profilePicture, setProfilePicture] = useState(defaultAvatar);
-  const fileInputRef = useRef(null);
+  const [fileInputRef, setFileInputRef] = useState(null);
   const { id } = useParams();
   const [announcements, setAnnouncements] = useState(null);
-  const [showPopup, setShowPopup] = useState(false); // State to control the visibility of the popup
+  const [showPopup, setShowPopup] = useState(false);
+  const { user } = useContext(UserContext);
+
+  const fetchTeamInfo = async () => {
+    const teamInfoData = await getTeamById(id);
+    setTeamInfo(teamInfoData);
+  };
 
   useEffect(() => {
+    const fetchAnnouncements = async () => {
+      const announcementsData = await getAnnouncements();
+      const filteredArray = announcementsData?.filter(
+        (item) => item?.team?._id === id
+      );
+      setAnnouncements(filteredArray);
+    };
+
     const fetchTeamInfo = async () => {
       const teamInfoData = await getTeamById(id);
       setTeamInfo(teamInfoData);
     };
-
-    const fetchAnnouncements = async () => {
-      const announcementsData = await getAnnouncements();
-      if (announcementsData) {
-        const filteredArray = announcementsData.filter(
-          (item) => item?.team?._id === id
-        );
-        setAnnouncements(filteredArray);
-      }
-    };
-
     fetchAnnouncements();
     fetchTeamInfo();
   }, [id]);
@@ -53,6 +57,15 @@ const TeamProfilePage = () => {
     fileInputRef.current.click();
   };
 
+  const handleModifyClick = () => {
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    fetchTeamInfo();
+  };
+
   const renderUniqueUsernames = () => {
     const renderedUsernames = [];
     return teamInfo?.teammates?.map((teammate, index) => {
@@ -70,13 +83,7 @@ const TeamProfilePage = () => {
     });
   };
 
-  const handleModifyClick = () => {
-    setShowPopup(true); // Show the popup when the modify icon is clicked
-  };
-
-  const handleClosePopup = () => {
-    setShowPopup(false); // Close the popup
-  };
+  const isCreator = user?.teams.some((team) => team._id === teamInfo?._id);
 
   return (
     <>
@@ -100,7 +107,7 @@ const TeamProfilePage = () => {
                     <i className="fas fa-camera" onClick={handlePictureClick} />
 
                     <input
-                      ref={fileInputRef}
+                      ref={setFileInputRef}
                       type="file"
                       accept="image/*"
                       style={{ display: "none" }}
@@ -108,7 +115,7 @@ const TeamProfilePage = () => {
                     />
                   </div>
 
-                  <div className={TeamProfilePageStyles.teamName}>
+                  <div className={TeamProfilePageStyles.teamInfos}>
                     <h1>{teamInfo?.name}</h1>
 
                     <p>Team Leader: {teamInfo?.team_leader_id?.username}</p>
@@ -116,11 +123,11 @@ const TeamProfilePage = () => {
                     <p>Région: {teamInfo?.region}</p>
                     <p>Disponibilité: {teamInfo?.availability}</p>
                     <p>
-                      Créée le:{" "}
+                      Créée le:
                       {moment(teamInfo?.createddAt).format("DD/MM/YYYY")}
                     </p>
                     <p>
-                      Mise à jour le:{" "}
+                      Mise à jour le:
                       {moment(teamInfo?.updatedAt).format("DD/MM/YYYY")}
                     </p>
                   </div>
@@ -128,17 +135,17 @@ const TeamProfilePage = () => {
                     <p>Membres de l'équipe:</p>
                     <ul>{renderUniqueUsernames()}</ul>
                   </div>
-                  <div className={TeamProfilePageStyles.button}>
+                  <div className={TeamProfilePageStyles.buttons}>
+                    {isCreator && (
+                      <Button
+                        text="Modifier les infos"
+                        onClick={handleModifyClick}
+                      />
+                    )}
                     <Button text="Publier une annonce" />
                     <Button text="Ajouter des membres" />
                     <Button text="Supprimer des membres" />
                     <Button text="Supprimer son équipe" />
-                  </div>
-                  <div
-                    className={TeamProfilePageStyles.modifyIcon}
-                    onClick={handleModifyClick} // Add the click event handler
-                  >
-                    <i className="fas fa-pen" />
                   </div>
                 </div>
 
@@ -150,8 +157,8 @@ const TeamProfilePage = () => {
           </div>
         </section>
       </TemplatePage>
-      {showPopup && <FormulaireTeam onClose={handleClosePopup} />}{" "}
-      {/* Render the Formulaire component when showPopup is true */}
+
+      {showPopup && <ModifyTeam teamId={id} onClose={handleClosePopup} />}
     </>
   );
 };

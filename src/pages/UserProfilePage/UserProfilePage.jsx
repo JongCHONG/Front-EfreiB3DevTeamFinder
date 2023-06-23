@@ -8,10 +8,9 @@ import UserProfilePageStyles from "../UserProfilePage/UserProfilePage.module.scs
 import TemplatePage from "../../components/TemplatePage/TemplatePage";
 import defaultAvatar from "../../assets/images/logo-announcement-default.png";
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
-import Button from "../../components/Button/Button";
 import ButtonNavigate from "../../components/ButtonNavigate/ButtonNavigate";
 
-import { getAnnouncements } from "../../utils/helpers";
+import { getAnnouncements, checkUserLoggedIn } from "../../utils/helpers";
 
 const UserProfilePage = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -19,6 +18,7 @@ const UserProfilePage = () => {
   const fileInputRef = useRef(null);
   const { id } = useParams();
   const [announcements, setAnnouncements] = useState(null);
+  const connectedUser = checkUserLoggedIn();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -66,90 +66,93 @@ const UserProfilePage = () => {
   return (
     <>
       <TemplatePage>
-        <section className="middle">
-          <div className={UserProfilePageStyles.topContainer}>
-            <div className={UserProfilePageStyles.profileContainer}>
-              <div className={UserProfilePageStyles.titleBox}>
-                <h2 className={UserProfilePageStyles.title}>
-                  Profil utilisateur
-                </h2>
-              </div>
-              <Fade>
-                {userInfo ? (
-                  <>
-                    <div className={UserProfilePageStyles.middleContainer}>
-                      <div className={UserProfilePageStyles.AnnouncementCard}>
-                        <div className={UserProfilePageStyles.profilePicture}>
-                          <img
-                            src={profilePicture}
-                            alt="Profile"
-                            className={UserProfilePageStyles.picture}
-                            onClick={handlePictureClick}
-                          />
-                          <i
-                            className="fas fa-camera"
-                            onClick={handlePictureClick}
-                          />
+        <div className={UserProfilePageStyles.topContainer}>
+          <div className={UserProfilePageStyles.profileContainer}>
+            <div className={UserProfilePageStyles.titleBox}>
+              <h2 className={UserProfilePageStyles.title}>
+                Profil utilisateur
+              </h2>
+            </div>
+            <Fade>
+              {userInfo ? (
+                <>
+                  <div className={UserProfilePageStyles.middleContainer}>
+                    <div className={UserProfilePageStyles.AnnouncementCard}>
+                      <div className={UserProfilePageStyles.profilePicture}>
+                        <img
+                          src={profilePicture}
+                          alt="Profile"
+                          className={UserProfilePageStyles.picture}
+                          onClick={handlePictureClick}
+                        />
+                        <i
+                          className="fas fa-camera"
+                          onClick={handlePictureClick}
+                        />
 
-                          <input
-                            ref={fileInputRef}
-                            type="file"
-                            accept="image/*"
-                            style={{ display: "none" }}
-                            onChange={handleFileChange}
-                          />
-                        </div>
-
-                        <div className={UserProfilePageStyles.teamName}>
-                          <h1>
-                            {userInfo.username} -{" "}
-                            {userInfo.rank || "Aucun rank"}
-                          </h1>
-
-                          <p>Mail : {userInfo.mail || "non renseigné"}</p>
-                          <p>Discord : {userInfo.discord || "non renseigné"}</p>
-                          <p>Valorant ID : {userInfo.valorant_id}</p>
-                          <p>
-                          Equipe(s) créée(s) : {" "}
-                            {teamCreated || "aucune équipe créée"}
-                          </p>
-                          <p>Région : {userInfo?.region || "non renseigné"}</p>
-                          <p>
-                            Disponibilités : {userInfo?.availability?.join() || "non renseigné"}
-                          </p>
-                          <p>
-                            Date de création : {moment(userInfo.createdAt).format("DD/MM/YYYY")}
-                          </p>
-                          <p>
-                            Dernière mise à jour : {moment(userInfo.updatedAt).format("DD/MM/YYYY")}
-                          </p>
-                        </div>
-                        <div className={UserProfilePageStyles.modifyIcon}>
-                          <i className="fas fa-pen" />
-                        </div>
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept="image/*"
+                          style={{ display: "none" }}
+                          onChange={handleFileChange}
+                        />
                       </div>
 
-                      {announcements?.map((announcement, index) => (
-                        <AnnouncementCard
-                          key={index}
-                          announcement={announcement}
-                        />
-                      ))}
+                      <div className={UserProfilePageStyles.teamName}>
+                        <h1>
+                          {userInfo.username} - {userInfo.rank || "Aucun rank"}
+                        </h1>
+
+                        <p>Mail : {userInfo.mail || "non renseigné"}</p>
+                        <p>Discord : {userInfo.discord || "non renseigné"}</p>
+                        <p>Valorant ID : {userInfo.valorant_id}</p>
+                        <p>
+                          Equipe(s) créée(s) :{" "}
+                          {teamCreated || "aucune équipe créée"}
+                        </p>
+                        <p>Région : {userInfo?.region || "non renseigné"}</p>
+                        <p>
+                          Disponibilités :{" "}
+                          {userInfo?.availability?.join() || "non renseigné"}
+                        </p>
+                        <p>
+                          Date de création :{" "}
+                          {moment(userInfo.createdAt).format("DD/MM/YYYY")}
+                        </p>
+                        <p>
+                          Dernière mise à jour :{" "}
+                          {moment(userInfo.updatedAt).format("DD/MM/YYYY")}
+                        </p>
+                      </div>
                       <div className={UserProfilePageStyles.button}>
-                        <Button text="Publier une annonce" />
-                        <ButtonNavigate text="Créer son équipe" link="/create/team"/>
+                        {connectedUser?._id === id && (
+                          <ButtonNavigate text="Modifier les infos" />
+                        )}
+                        <ButtonNavigate text="Publier une annonce" />
+                        <ButtonNavigate
+                          text="Créer son équipe"
+                          link="/create/team"
+                        />
                       </div>
                     </div>
-                  </>
-                ) : (
-                  <span style={{ marginLeft: "3%" }}>
-                    Chargement des données...
-                  </span>
-                )}
-              </Fade>
-            </div>
+
+                    {announcements?.map((announcement, index) => (
+                      <AnnouncementCard
+                        key={index}
+                        announcement={announcement}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <span style={{ marginLeft: "3%" }}>
+                  Chargement des données...
+                </span>
+              )}
+            </Fade>
           </div>
-        </section>
+        </div>
       </TemplatePage>
     </>
   );
