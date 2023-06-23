@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import TemplatePage from "../../components/TemplatePage/TemplatePage";
 import TeamProfilePageStyles from "./TeamProfilePage.module.scss";
 import defaultAvatar from "../../assets/images/defaultAvatar.png";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
 import { getAnnouncements, getTeamById } from "../../utils/helpers";
 import Button from "../../components/Button/Button";
@@ -59,9 +59,11 @@ const TeamProfilePage = () => {
       if (!renderedUsernames.includes(teammate.username)) {
         renderedUsernames.push(teammate.username);
         return (
-          <li key={index} className={TeamProfilePageStyles.teammateUsername}>
-            {teammate.username}
-          </li>
+          <Link to={`/profil/${teammate._id}`} style={{color:"#ff4454"}}>
+            <li key={index}>
+              {teammate.username}
+            </li>
+          </Link>
         );
       }
       return null;

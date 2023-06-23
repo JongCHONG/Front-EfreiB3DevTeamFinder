@@ -124,7 +124,7 @@ const CreateTeamPage = () => {
           <div className={CreateTeamPageStyles.error}>
             {formik.errors.availability}
           </div>
-          <Button text="Create équipe" />
+          <Button text="Créer l'équipe" />
         </form>
       </div>
     </TemplatePage>
