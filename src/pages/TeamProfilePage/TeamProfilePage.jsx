@@ -31,14 +31,14 @@ const TeamProfilePage = ({ onClose }) => {
     setTeamInfo(teamInfoData);
   };
 
+  const fetchAnnouncements = async () => {
+    const announcementsData = await getAnnouncements();
+    const filteredArray = announcementsData?.filter(
+      (item) => item?.team?._id === id
+    );
+    setAnnouncements(filteredArray);
+  };
   useEffect(() => {
-    const fetchAnnouncements = async () => {
-      const announcementsData = await getAnnouncements();
-      const filteredArray = announcementsData?.filter(
-        (item) => item?.team?._id === id
-      );
-      setAnnouncements(filteredArray);
-    };
 
     const fetchTeamInfo = async () => {
       const teamInfoData = await getTeamById(id);
@@ -109,6 +109,7 @@ const TeamProfilePage = ({ onClose }) => {
           announcement_text: newAnnouncement.description,
         }),
       });
+      fetchAnnouncements();
 
       if (response.ok) {
         console.log("Announcement created successfully");
