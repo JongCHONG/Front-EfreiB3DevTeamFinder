@@ -21,8 +21,8 @@ const LoginPage = () => {
   const formik = useFormik({
 
     initialValues: {
-      username: "Martin",
-      password: "jsp12345",
+      username: "",
+      password: "",
     },
 
     onSubmit: handleSubmit,

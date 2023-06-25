@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import TemplatePage from "../../components/TemplatePage/TemplatePage";
 import Button from "../../components/Button/Button";
+import { UserContext } from "../../contexts/UserContext";
 
 import CreateTeamPageStyles from "./CreateTeamPage.module.scss";
-import { checkUserLoggedIn } from "../../utils/helpers";
+import { checkUserLoggedIn, getUserById } from "../../utils/helpers";
 
 const CreateTeamPage = () => {
   const user = checkUserLoggedIn()
   const navigate = useNavigate();
   const [errorCreateTeam, setErrorCreateTeam] = useState(null);
+  const { setUser } = useContext(UserContext);
 
   const formik = useFormik({
     initialValues: {
@@ -58,6 +60,11 @@ const CreateTeamPage = () => {
       setErrorCreateTeam(team.error);
       return;
     }
+    const fetchUserInfo = async () => {
+      const userInfoData = await getUserById(user?._id);
+      setUser(userInfoData);
+    };
+    fetchUserInfo();
     navigate(`/`);
   };
 

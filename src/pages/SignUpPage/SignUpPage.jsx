@@ -18,11 +18,11 @@ const SignUpPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: "Valou",
-      email: "aalou@aalou.com",
-      password: "ValouValou",
-      passwordConfirmation: "ValouValou",
-      discord: "Valou",
+      username: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+      discord: "",
       agreeTerms: false,
     },
     onSubmit: (values) => {
